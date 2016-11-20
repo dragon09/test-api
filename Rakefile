@@ -4,5 +4,5 @@ require 'sinatra/activerecord/rake'
 
 ActiveRecord::Base.establish_connection(
   :adapter => 'mysql2',
-  :database => 'cats_rescue'
+  :database => 'project3'
 )

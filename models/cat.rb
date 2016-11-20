@@ -1,3 +1,3 @@
-class Register < ActiveRecord::Base
+class Cat < ActiveRecord::Base
 
 end
