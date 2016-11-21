@@ -26,6 +26,11 @@ class SessionsController < ApplicationController
     end
  end
 
+
+ get '/login' do
+      session[:logged_in] = true
+end
+
  get '/logout' do
    session = nil
    erb :logout

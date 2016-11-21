@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
   @username = ''
 
   get '/' do
-#account/user_register
+    Account.all.to_json
   end
 
   # get '/:id' do
@@ -11,7 +11,7 @@ class AccountsController < ApplicationController
   #   @model.to_json
   # end
 
-  post '/register' do
+  post '/' do
     puts params
     @username = params[:username]
     @email = params[:email]
@@ -22,7 +22,7 @@ class AccountsController < ApplicationController
       session[:name] = params[:name]
       session[:register] = true
 
-      redirect '/account/account_user'
+      redirect '/'
     else
       "You did not sign up in correctly"
     end
