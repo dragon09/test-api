@@ -5,7 +5,6 @@ class CreateAccountsTable < ActiveRecord::Migration[5.0]
       table.string :lastname
       table.string :email
       table.string :username
-      table.string :password
       table.boolean :is_author
     end
   end

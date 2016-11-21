@@ -13,33 +13,30 @@ class AccountsController < ApplicationController
 
   post '/' do
     puts params
-    @username = params[:username]
+    @name = params[:name]
     @email = params[:email]
     @password = params[:password]
-    if @username == true
-      session[:logged_in] = true
-      session[:user_id]    = @user.id
-      session[:name] = params[:name]
-      session[:register] = true
+    if @name == true
+      # session[:logged_in] = true
+      # session[:user_id]    = @user.id
+      # session[:name] = params[:name]
+      # session[:register] = true
 
       redirect '/'
     else
       "You did not sign up in correctly"
     end
 
-    password_salt = BCrypt::Engine.generate_salt
-    password_hash = BCrypt::Engine.hash_secret(@password, password_salt)
-
     @model = Account.new
-    @model.username = @username
+    @model.name = @name
     @model.email = @email
-    @model.password = password_hash
-    @model.password_salt = password_salt
+    @model.password = params[:password]
+    @model.password_confirmation = params[:password]
     @model.save
     @account_message = "You are now logged in and registered!"
 
-    session[:user] = @model
-    @username = session[:user][:username]
+    # session[:name] = @model
+    # @model = session[:user][:name]
     @model.to_json
   end
 

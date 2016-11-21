@@ -8,7 +8,7 @@ require './models/cat'
 require './models/post'
 require './models/account'
 require './models/comment'
-require '.models/image'
+# require '.models/image'
 
 
 # controllers
@@ -18,7 +18,7 @@ require './controllers/blog_controller'
 require './controllers/accounts_controller'
 require './controllers/sessions_controller'
 require './controllers/comment_controller'
-require './controllers/image_controller'
+# require './controllers/image_controller'
 
 
 
@@ -29,4 +29,4 @@ map('/api/posts') { run BlogController }
 map('/api/accounts') { run AccountsController }
 map('/api/sessions') { run SessionsController }
 map('/api/comments') { run CommentsController }
-map('/api/images') { run ImagesController }
+# map('/api/images') { run ImagesController }

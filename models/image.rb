@@ -1,3 +1,3 @@
-class Image < ActiveRecord::Base 
-
-end
+# class Image < ActiveRecord::Base 
+#
+# end

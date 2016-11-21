@@ -17,15 +17,20 @@ ActiveRecord::Schema.define(version: 20161120223248) do
     t.string  "lastname"
     t.string  "email"
     t.string  "username"
-    t.string  "password"
     t.boolean "is_author"
-    t.string  "password_salt"
+    t.string  "password_digest"
   end
 
   create_table "cats", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "note"
     t.string "image"
+  end
+
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "content"
+    t.string "user_id"
+    t.string "image_id"
   end
 
   create_table "dogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

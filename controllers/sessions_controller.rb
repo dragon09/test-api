@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   get '/account' do
     @model = Account.all
     @model.to_json
-     ejs :account_user
+
   end
 
   get '/:id' do
@@ -14,12 +14,13 @@ class SessionsController < ApplicationController
 
 
   post '/login' do
-    @user = Account.find_by email: params[:email]
-    if @user && ( @user.password == BCrypt::Engine.hash_secret(params[:password], @user.password_salt))
+    @account = Account.find_by email: params[:email]
+
+    if @account && @account.authenticate(params[:password])
       session[:logged_in] = true
-      session[:name] = @user.name
+      session[:name] = @account.name
       session[:register] = false
-      @user.to_json
+      @account.to_json
     else
       # "You entered wrong username or password, please try again!"
       {status: :error}.to_json
@@ -31,9 +32,9 @@ class SessionsController < ApplicationController
       session[:logged_in] = true
 end
 
- get '/logout' do
-   session = nil
-   erb :logout
- end
+ # get '/logout' do
+ #   session = nil
+ #   erb :logout
+ # end
 
 end
