@@ -42,10 +42,8 @@ class ApplicationController < Sinatra::Base
     {:message => 'not here'}.to_json
   end
 
-  get '/account' do
-
-   ejs :account_user
-end
+  # get '/account' do
+# end
 
 
 
