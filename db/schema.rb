@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161120223248) do
+ActiveRecord::Schema.define(version: 20161122202600) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string  "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20161120223248) do
     t.string  "username"
     t.boolean "is_author"
     t.string  "password_digest"
+    t.string  "api_key"
   end
 
   create_table "cats", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -28,15 +29,21 @@ ActiveRecord::Schema.define(version: 20161120223248) do
   end
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "content"
-    t.string "user_id"
-    t.string "image_id"
+    t.string  "content"
+    t.integer "user_id"
+    t.integer "image_id"
   end
 
   create_table "dogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "note"
     t.string "image"
+  end
+
+  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "src"
+    t.integer "user_id"
+    t.string  "caption"
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

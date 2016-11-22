@@ -8,18 +8,24 @@ class ApplicationController < Sinatra::Base
 
   register Sinatra::CrossOrigin
 
-  ActiveRecord::Base.establish_connection(
-      :adapter => 'mysql2',
-      :database => 'project3'
-  )
+  # ActiveRecord::Base.establish_connection(
+  #     # :adapter => 'mysql2',
+  #     # :database => 'project3'
+  #
+  #     #db info would go here
+  #
+  # )
 
   require 'sinatra'
   require 'sinatra/cross_origin'
+  # require "carrierwave/orm/activerecord"
 
 
   set :views, File.expand_path('../../views', __FILE__)
   set :public_dir, File.expand_path('../../public', __FILE__)
-
+  CarrierWave.configure do |config|
+    config.root = File.dirname(__FILE__) + "/public"
+  end
 
   set :allow_origin, :any
   set :allow_methods, [:get, :post, :patch, :delete]
@@ -45,7 +51,15 @@ class ApplicationController < Sinatra::Base
   # get '/account' do
 # end
 
-
+  def is_api_key_valid?(api_key)
+    binding.pry
+    @User = Account.where(:api_key = api_key.to_s)
+    if @User != nil
+      return true
+    else
+      return false
+    end
+  end
 
   get '/' do
     {:message => 'Home page not designed yet. Whoops.'}.to_json

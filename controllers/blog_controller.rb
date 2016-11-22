@@ -10,12 +10,22 @@ class BlogController < ApplicationController
   end
 
   post '/' do
-    @model = Post.new
-    @model.title = params[:title]
-    @model.content = params[:content]
-    @model.tags = params[:tags]
-    @model.save
-    @model.to_json
+    if is_api_key_valid?(params[:api_key])
+      binding.pry
+      p 'it works: ' + params[:api_key]
+      @model = Post.new
+      @model.title = params[:title]
+      @model.content = params[:content]
+      @model.tags = params[:tags]
+      @model.save
+      @model.to_json
+    else
+      binding.pry
+      p 'api key is not valid'
+      {:message => 'Invalid API key',
+      :status => 403}.to_json
+    end
+
   end
 
   patch '/:id' do
