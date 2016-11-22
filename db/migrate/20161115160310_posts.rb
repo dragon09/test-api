@@ -4,6 +4,7 @@ class Posts < ActiveRecord::Migration[5.0]
       table.string :title
       table.string :content
       table.string :tags
+      
     end
   end
 end
