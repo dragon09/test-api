@@ -10,7 +10,7 @@ class BlogController < ApplicationController
   end
 
   post '/' do
-    if is_api_key_valid?(params[:api_key])
+    # if is_api_key_valid?(params[:api_key])
       @model.password = params[:password]
       @model.generate[:api_key]
       @model.api_key = params[:api_key]
@@ -20,14 +20,15 @@ class BlogController < ApplicationController
       @model.title = params[:title]
       @model.content = params[:content]
       @model.tags = params[:tags]
+      @model.image = Image.new(src: params[:src])
       @model.save
       @model.to_json
-    else
-      binding.pry
-      p 'api key is not valid'
-      {:message => 'Invalid API key',
-      :status => 403}.to_json
-    end
+    # else
+    #   binding.pry
+    #   p 'api key is not valid'
+    #   {:message => 'Invalid API key',
+    #   :status => 403}.to_json
+    # end
 
   end
 

@@ -56,7 +56,7 @@ class ApplicationController < Sinatra::Base
 # end
 
   def is_api_key_valid?(api_key)
-    @model = Account.where(:api_key == api_key.to_s)
+    @model = Account.where(api_key: api_key)
     if @model != nil
       return true
     else
