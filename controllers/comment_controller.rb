@@ -13,7 +13,6 @@ class CommentsController < ApplicationController
 
 
 
-
   post '/' do
     @model = Comment.new
     @model.comment  = params[:comment]

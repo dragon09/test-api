@@ -12,7 +12,7 @@ class BlogController < ApplicationController
   post '/' do
     if is_api_key_valid?(params[:api_key])
       @model.password = params[:password]
-      @model.generate[:api_key]!
+      @model.generate[:api_key]
       @model.api_key = params[:api_key]
       binding.pry
       p 'it works: ' + params[:api_key]

@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  #enable :sessions
+
   @username = ''
 
   get '/' do
@@ -13,14 +13,16 @@ class AccountsController < ApplicationController
 
   post '/login' do
     @account = Account.find_by email: params[:email]
-
-    if @account && @account.authenticate(params[:password])
+    @email = params[:email]
+    if @account && @account.authenticate(params[:password]) == true
+      @account_message = "You have successfully logged in."
       session[:logged_in] = true
       session[:name] = @account.name
       session[:register] = false
       @account.to_json
-    else
-      # "You entered wrong username or password, please try again!"
+        # "You entered wrong username or password, please try again!"
+    else @account && @account.authenticate(params[:password]) == false
+        @account_message = "You have entered the wrong email address or password."
       {status: :error}.to_json
     end
   end
@@ -43,6 +45,11 @@ class AccountsController < ApplicationController
       @model.api_key = 'catsmeow'
       @model.save
       @account_message = "You are now logged in and registered!"
+end
+      #binding.pry
+      @model = Account.where(:name => @name).first!
+        if @model.password_digest == BCrypt::Engine.hash_secret(@password, @model.password)
+          @account_message = "Hello, welcome back!"
 
       # session[:name] = @model
       # @model = session[:user][:name]
@@ -51,5 +58,10 @@ class AccountsController < ApplicationController
     else
       "You did not sign up in correctly"
     end
+    # get '/logout' do
+    # 		session[:name] = nil
+    # 		@name = nil
+    # 		redirect '/'
+    # 	end
   end
 end

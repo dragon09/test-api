@@ -32,10 +32,5 @@ class SessionsController < ApplicationController
       session[:logged_in] = true
 end
 
-# get '/logout' do
-# 		session[:name] = nil
-# 		@name = nil
-# 		redirect '/'
-# 	end
 
 end

@@ -19,7 +19,11 @@ class ApplicationController < Sinatra::Base
   require 'sinatra'
   require 'sinatra/cross_origin'
   # require "carrierwave/orm/activerecord"
+  # require 'jwt'
 
+  #JWT auth Token
+  # require File.expand_path '../main.rb', __FILE__
+  # set :   , File.expand_path('../main.rb', __FILE__)
 
   set :views, File.expand_path('../../views', __FILE__)
   set :public_dir, File.expand_path('../../public', __FILE__)
@@ -52,9 +56,8 @@ class ApplicationController < Sinatra::Base
 # end
 
   def is_api_key_valid?(api_key)
-    binding.pry
-    @User = Account.where(:api_key = api_key.to_s)
-    if @User != nil
+    @model = Account.where(:api_key == api_key.to_s)
+    if @model != nil
       return true
     else
       return false
