@@ -48,5 +48,5 @@ class AccountsController < ApplicationController
     # 		@name = nil
     # 		redirect '/'
     # 	end
-  # end
+  end
 end
