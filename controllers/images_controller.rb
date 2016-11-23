@@ -18,7 +18,7 @@ class ImagesController < ApplicationController
 
 
   post '/' do
-    puts params.inspect
+    # puts params.inspect
     #Create new Image Model
     @model = Image.new
     #Save the data from the request

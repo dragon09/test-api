@@ -1,3 +1,3 @@
 class Post < ActiveRecord::Base
-  has_one :image
+  # has_one :image
 end
