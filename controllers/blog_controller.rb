@@ -9,42 +9,54 @@ class BlogController < ApplicationController
     @model.to_json
   end
 
+  get '/:id/comments' do
+    @model = Post.find(params[:id])
+    @model.comments.to_json
+  end
+
   post '/' do
-    if is_api_key_valid?(params[:api_key])
-      @model.password = params[:password]
-      @model.generate[:api_key]
-      @model.api_key = params[:api_key]
-      binding.pry
-      p 'it works: ' + params[:api_key]
+    if account = Account.find_by(api_key: params[:api_key], is_author: true) 
       @model = Post.new
       @model.title = params[:title]
       @model.content = params[:content]
+      @model.account_id = account.id
       @model.tags = params[:tags]
       # @model.image = Image.new(src: params[:src])
       @model.save
-      @model.to_json
+      {:message => 'Post created',
+      :status => :success}.to_json
     else
-      binding.pry
-      p 'api key is not valid'
       {:message => 'Invalid API key',
-      :status => 403}.to_json
+      :status => :error}.to_json
     end
 
   end
 
   patch '/:id' do
-    @model = Post.find(params[:id])
-    @model.title = params[:title]
-    @model.content = params[:content]
-    @model.tags = params[:tags]
-    @model.save
-    @model.to_json
+    if account = Account.find_by(api_key: params[:api_key]) 
+      @model = Post.find_by(id: params[:id], account_id: account.id)
+      unless @model.nil?
+        @model.title = params[:title] if params[:title]
+        @model.content = params[:content] if params[:content]
+        @model.tags = params[:tags] if params[:tags]
+        @model.save
+      end
+      {:message => 'Post updated',
+      :status => :success}.to_json
+    else
+      {:message => 'Invalid API key',
+      :status => :error}.to_json
+    end 
   end
 
   delete '/:id' do
-    #binding.pry
-    @model = Post.find(params[:id])
-    @model.destroy
-    {:message => 'Your post with an id of ' + params[:id] + ' was removed :)'}.to_json
+    if account = Account.find_by(api_key: params[:api_key]) 
+      @model = Post.find_by(id: params[:id], account_id: account.id)
+      @model.destroy unless @model.nil?
+      {:message => 'Your post was removed :)'}.to_json
+    else
+      {:message => 'Invalid API key',
+      :status => :error}.to_json
+    end 
   end
 end

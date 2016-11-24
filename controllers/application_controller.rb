@@ -40,12 +40,14 @@ class ApplicationController < Sinatra::Base
     enable :cross_origin
   end
 
+
+
   #enable session
   enable :sessions, :logging
 
   not_found do
     #ejs :notfound
-    {:message => 'not here'}.to_json
+    {:message => 'You are not logged in.'}.to_json
   end
 
   # get '/account' do

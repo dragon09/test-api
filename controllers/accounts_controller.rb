@@ -1,9 +1,14 @@
 class AccountsController < ApplicationController
 
   @username = ''
+  # GET	/             accounts#index	display a list of all photos
+  # POST /	        accounts#create	create a new photo
+  # GET	/:id	       accounts#show	display a specific photo
+  # PATCH/PUT	/:id	       accounts#update	update a specific photo
+  # DELETE	/:id	        accounts#destroy	delete a specific photo
 
   get '/' do
-    Account.all.to_json
+    Account.all.map{|account| {email: account.email, name: account.name} }.to_json
   end
 
   # get '/:id' do
@@ -16,20 +21,27 @@ class AccountsController < ApplicationController
     @name = params[:name]
     @email = params[:email]
     @password = params[:password]
-    if @name == true
-      session[:logged_in] = true
-      session[:user_id]    = @user.id
-      session[:name] = params[:name]
-      session[:register] = true
+    @model = Account.find_by(email: @email)
+    if @model.nil?
       @model = Account.new
       @model.name = @name
       @model.email = @email
       @model.password = params[:password]
       @model.password_confirmation = params[:password]
-      @model.api_key = 'catsmeow'
+      @model.api_key = key = 30.times.map{('a'..'z').to_a.sample}.join
       @model.save
-      {message: "You are now logged in and registered!", user: @model.name}.to_json
+      { message: "You are now logged in and registered!",
+        status: :success,
+        api_key: @model.api_key,
+        email: @model.email
+      }.to_json
+    else
+      { message: "Account with this email already exists!",
+        status: :error,
+        email: @model.email
+      }.to_json
     end
+
 
       #binding.pry
     #   @model = Account.where(:name => @name).first!

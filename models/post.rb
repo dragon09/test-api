@@ -1,3 +1,4 @@
 class Post < ActiveRecord::Base
-  # has_one :image
+  has_many :comments
+  belongs_to :account
 end
