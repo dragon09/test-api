@@ -8,13 +8,11 @@ class ApplicationController < Sinatra::Base
 
   register Sinatra::CrossOrigin
 
-  # ActiveRecord::Base.establish_connection(
-  #     # :adapter => 'mysql2',
-  #     # :database => 'project3'
-  #
-  #     #db info would go here
-  #
-  # )
+  ActiveRecord::Base.establish_connection(
+      :adapter => 'mysql2',
+      :database => 'project3'
+      #db info would go here
+  )
 
   require 'sinatra'
   require 'sinatra/cross_origin'
