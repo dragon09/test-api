@@ -1,17 +1,23 @@
 # accounts
 
+https://vida-api.herokuapp.com/api/accounts
+
 ```
-curl localhost:9292/api/accounts 
+curl localhost:9292/api/accounts
 curl -X POST localhost:9292/api/accounts -d 'name=v1&email=som@email.com&password=12345'
 ```
 
 # session
+
+https://vida-api.herokuapp.com/api/sessions
 
 ```
 curl -X POST localhost:9292/api/sessions -d 'email=som@email.com&password=12345'
 ```
 
 # posts
+
+https://vida-api.herokuapp.com/api/posts
 
 ```
 curl localhost:9292/api/posts
@@ -23,6 +29,8 @@ curl -X DELETE localhost:9292/api/posts/1 -d 'api_key=wkrtglgpqdjdplwmgjpkufriwf
 ```
 
 # comments
+
+https://vida-api.herokuapp.com/api/comments
 
 ```
 curl -X POST localhost:9292/api/comments -d 'api_key=wkrtglgpqdjdplwmgjpkufriwfxfqv&content=Something&post_id=2'
