@@ -9,12 +9,20 @@ class ApplicationController < Sinatra::Base
   register Sinatra::CrossOrigin
 
   ActiveRecord::Base.establish_connection(
-    :adapter => ENV['DB_ADAPTER'],
-    :database => ENV['DB_NAME'],
-    :username => ENV['DB_USER'],
-    :password => ENV['DB_PASSWORD'],
-    :host => ENV['DB_HOST']
-  )
+     :adapter => 'mysql2',
+     :database => 'project3'
+
+    #  db info would go here
+
+ )
+
+  # ActiveRecord::Base.establish_connection(
+  #   :adapter => ENV['DB_ADAPTER'],
+  #   :database => ENV['DB_NAME'],
+  #   :username => ENV['DB_USER'],
+  #   :password => ENV['DB_PASSWORD'],
+  #   :host => ENV['DB_HOST']
+  # )
 
   require 'sinatra'
   require 'sinatra/cross_origin'
